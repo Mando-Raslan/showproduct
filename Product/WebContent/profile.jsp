@@ -69,7 +69,7 @@ if(session.getAttribute("user")==null){
        Tools
      </a>
      <a href="#" class="list-group-item list-group-item-action">Add Products</a>
-     <a href="ShowClient" class="list-group-item list-group-item-action">Show All Clients</a>
+     <a href="ShowClient.jsp" class="list-group-item list-group-item-action">Show All Clients</a>
      <a href="#" class="list-group-item list-group-item-action">My Profile</a>
      
      </div>

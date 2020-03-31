@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApiClass {
 	
@@ -89,6 +91,38 @@ public class ApiClass {
 		}
 		
 		return user;
+	}
+	
+	
+	public static List<User> getAllClients(){
+		
+		List<User> AllRecords = new ArrayList<User>();		
+        Connection con = getConnection();
+		
+		try {
+			String sql           = "select * from client_table";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet pointer    = ps.executeQuery();
+			while(pointer.next()) {
+				User user = new User();
+				user.setEmail(pointer.getString("email"));
+				user.setPassword(pointer.getString("password"));
+				user.setAddress(pointer.getString("address"));
+				user.setPhone(pointer.getInt("phone"));
+				user.setCountry(pointer.getString("Country"));
+				user.setState(pointer.getString("state"));
+				user.setGender(pointer.getString("Gender"));
+				user.setPhoto(pointer.getBytes("photo"));
+				user.setBase64(pointer.getString("Base64"));
+				user.setAdminorUser(pointer.getString("AdminorUser"));
+				AllRecords.add(user);
+				
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+		return AllRecords;
 	}
 	
 	
