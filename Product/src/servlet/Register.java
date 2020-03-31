@@ -6,12 +6,14 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Base64;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import mohamed.ApiClass;
@@ -58,12 +60,17 @@ public class Register extends HttpServlet {
 			int status      = ApiClass.registerUser(user);
 			
 			if(status > 0) {
-				
-				writer.print("Sussessful Done");
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				response.sendRedirect("profile.jsp");
 				
 			}else {
 				
-				writer.print("Errors");
+				writer.print("<h1>Errors In Page Try Again</h1>");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("registerform.jsp");
+				dispatcher.include(request, response);
+				
+				
 			}
 			
 		}

@@ -3,6 +3,7 @@ package mohamed;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ApiClass {
@@ -53,6 +54,44 @@ public class ApiClass {
 		
 		return status;
 	}
+	
+	
+	public static User login(String email , String password) {
+		
+		User user = null;
+		Connection con = getConnection();
+		
+		try {
+			String sql           = "select * from client_table where email=? and password=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, password);
+			ResultSet pointer = ps.executeQuery();
+			while(pointer.next()) {
+				user = new User();
+				user.setEmail(pointer.getString("email"));
+				user.setPassword(pointer.getString("password"));
+				user.setAddress(pointer.getString("address"));
+				user.setPhone(pointer.getInt("phone"));
+				user.setCountry(pointer.getString("Country"));
+				user.setState(pointer.getString("state"));
+				user.setGender(pointer.getString("Gender"));
+				user.setPhoto(pointer.getBytes("photo"));
+				user.setBase64(pointer.getString("Base64"));
+				user.setAdminorUser(pointer.getString("AdminorUser"));
+				
+				
+			}
+			
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+		return user;
+	}
+	
+	
 	
 	
 

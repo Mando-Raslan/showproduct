@@ -11,8 +11,24 @@
 <body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="js/bootstrap.min.js" ></script>
-<div class= "container">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+
+response.setHeader("Cache-Control","no-store"); // HTTP 1.1
+response.setHeader("Pragma","no-cache"); // HTTP 1.0
+response.setDateHeader ("Expires", 0);
+if(session.getAttribute("user")!=null){
+	
+	response.sendRedirect("profile.jsp");
+	
+}
+
+
+%>
+
+
+<div class= "container">
 <%@include file="navbar.html"%>
 
 
@@ -90,6 +106,8 @@
    <div class="custom-file">
     <input type="file" class="custom-file-input" name="photo" required="required">
     <label class="custom-file-label" for="photo">Choose Image</label>
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
      
   </div>
  

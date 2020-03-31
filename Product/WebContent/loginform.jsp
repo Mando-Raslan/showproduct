@@ -14,7 +14,18 @@
 <body>
  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
  <script src="js/bootstrap.min.js" ></script>
+<%
 
+response.setHeader("Cache-Control","no-store"); // HTTP 1.1
+response.setHeader("Pragma","no-cache"); // HTTP 1.0
+response.setDateHeader ("Expires", 0);
+if(session.getAttribute("user")!=null){
+	
+	response.sendRedirect("profile.jsp");
+}
+
+
+%>
 
 
 
@@ -25,18 +36,18 @@
 <%@include file="navbar.html"%>
 
 <br><br>
-<form>
+<form action="Login" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" required="required">
+    <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
   </div>
   <br>
-  <button   type="button" class="btn btn-primary btn-lg btn-block">   Sign In </button>
+  <button   type="submit" class="btn btn-primary btn-lg btn-block">   Sign In </button>
     
   
  
