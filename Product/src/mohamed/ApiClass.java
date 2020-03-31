@@ -126,6 +126,56 @@ public class ApiClass {
 	}
 	
 	
+	public static int addProduct(ProductModel productModel) {
+		int status = 0;
+		Connection con = getConnection();
+		
+		try {
+			String sql           = "insert into product_table(productName,Base64,productPhoto,description) values(?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1,productModel.getProductName());
+			ps.setString(2,productModel.getBase64());
+			ps.setBytes (3, productModel.getPhoto());
+			ps.setString(4, productModel.getDescription());
+			status  = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+    public static List<ProductModel> getAllProduct(){
+		
+		List<ProductModel> AllRecords = new ArrayList<ProductModel>();		
+		
+        Connection con = getConnection();
+		
+		try {
+			String sql           = "select * from product_table";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet pointer    = ps.executeQuery();
+			
+			while(pointer.next()) {
+				ProductModel productModel = new ProductModel();
+				productModel.setProductName(pointer.getString("productName"));
+				productModel.setBase64(pointer.getString("Base64"));
+				productModel.setPhoto(pointer.getBytes("productPhoto"));
+				productModel.setDescription(pointer.getString("description"));
+				productModel.setId(pointer.getInt("id"));
+				
+				
+				productModel.setTimestamp(pointer.getTimestamp("timestamp"));
+				AllRecords.add(productModel);
+				
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+		return AllRecords;
+	}
 	
 	
 

@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="css/bootstrap.min.css" >
 
-<title>Insert title here</title>
+<title>My Profile</title>
 </head>
 <body>
 
@@ -14,6 +14,12 @@
 <script src="js/bootstrap.min.js" ></script>
 <%@ include file="navbarProfile.html" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="mohamed.*" %>
+<%@page import="java.util.List" %>
+
+
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 
 response.setHeader("Cache-Control","no-store"); // HTTP 1.1
@@ -24,6 +30,18 @@ if(session.getAttribute("user")==null){
 	
 	
 	response.sendRedirect("loginform.jsp");
+	
+}else{
+	
+	
+	List <ProductModel> allRecords = ApiClass.getAllProduct();
+	if(allRecords!=null){
+		
+		session.setAttribute("product", allRecords);
+		
+	}
+	
+	
 	
 }
 
@@ -40,7 +58,7 @@ if(session.getAttribute("user")==null){
 <div class="form-row">
 
  <div class="form-group col-md-3">
-  <img src="data:image/jpg;base64,${user.getBase64()} " width="200" height="200"/>
+  <img src="data:image/jpg;base64,${user.getBase64()} " width="300" height="200"/>
     <div class="card-body">
       <h5 class="card-title">${user.getEmail()}</h5>
       <p class="card-text">${user.getAddress()}</p>
@@ -52,11 +70,36 @@ if(session.getAttribute("user")==null){
   
   
   <div class="form-group col-md-6">
+  
+  <c:forEach var="productObject" items="${product}">
+  
+   
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Here There Are Many Product And u Can Search About any Product Here Just click on Search and u will Find ur Product if it is here.</p>
+      <h5 class="card-title">${productObject.getProductName()}</h5>
+      <br>
+      <img src="data:image/jpg;base64,${productObject.getBase64()} " width="600" height="150"/>
+      <br><br>
+      <p class="card-text">${productObject.getDescription()}</p>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      
+      
+        <div class="form-row">
+    <div class="form-group col-md-6">
+      <a href="loginform.jsp" class="btn btn-primary btn-lg btn-block">Delete</a>
     </div>
+    <div class="form-group col-md-6">
+      <a href="loginform.jsp" class="btn btn-primary btn-lg btn-block">Edit</a>
+    </div>
+  </div>
+      
+      
+      
+        
+      
+    </div>
+  
+  </c:forEach>
+ 
   </div>
  
 
@@ -68,7 +111,7 @@ if(session.getAttribute("user")==null){
       <a href="#" class="list-group-item list-group-item-action active">
        Tools
      </a>
-     <a href="#" class="list-group-item list-group-item-action">Add Products</a>
+     <a href="addproductform.jsp" class="list-group-item list-group-item-action">Add Products</a>
      <a href="ShowClient.jsp" class="list-group-item list-group-item-action">Show All Clients</a>
      <a href="#" class="list-group-item list-group-item-action">My Profile</a>
      
