@@ -176,6 +176,76 @@ public class ApiClass {
 		
 		return AllRecords;
 	}
+    
+    
+    public static int deleteProduct(int id) {
+    	int status = 0;
+		Connection con = getConnection();
+		
+		try {
+			String sql           = "delete from product_table where id=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			status  = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
+    	
+    }
+    
+    
+    public static ProductModel getProduct(int id) {
+    	
+    	ProductModel productModel = null;
+        Connection con = getConnection();
+		
+		try {
+			String sql           = "select * from product_table where id=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet poinResultSet = ps.executeQuery();
+			while(poinResultSet.next()) {
+				productModel = new ProductModel();
+				productModel.setProductName(poinResultSet.getString("productName"));
+				productModel.setDescription(poinResultSet.getString("description"));
+				productModel.setBase64(poinResultSet.getString("Base64"));
+				productModel.setId(id);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return productModel;
+    }
+    
+    
+    
+    public static int editProduct(ProductModel productModel ) {
+		int status = 0;
+		Connection con = getConnection();
+		
+		try {
+			String sql           = "update product_table set productName=?,Base64=?,productPhoto=?,description=? where id=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1,productModel.getProductName());
+			ps.setString(2,productModel.getBase64());
+			ps.setBytes (3, productModel.getPhoto());
+			ps.setString(4, productModel.getDescription());
+			ps.setInt(5, productModel.getId());
+			status  = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+    
 	
 	
 

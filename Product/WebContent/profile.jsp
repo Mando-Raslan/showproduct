@@ -85,10 +85,10 @@ if(session.getAttribute("user")==null){
       
         <div class="form-row">
     <div class="form-group col-md-6">
-      <a href="loginform.jsp" class="btn btn-primary btn-lg btn-block">Delete</a>
+      <a href="DeleteProduct?id=${productObject.getId()}" class="btn btn-primary btn-lg btn-block">Delete</a>
     </div>
     <div class="form-group col-md-6">
-      <a href="loginform.jsp" class="btn btn-primary btn-lg btn-block">Edit</a>
+      <a href="EditProductForm.jsp?id=${productObject.getId()}" class="btn btn-primary btn-lg btn-block">Edit</a>
     </div>
   </div>
       
