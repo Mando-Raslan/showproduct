@@ -58,6 +58,27 @@ public class ApiClass {
 	}
 	
 	
+	public static int deleteClient(int id) {
+		
+		int status = 0;
+		Connection con = getConnection();
+		
+		try {
+			String sql           = "delete from client_table where id=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			status  = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
+		
+		
+	}
+	
+	
 	public static User login(String email , String password) {
 		
 		User user = null;
@@ -115,6 +136,7 @@ public class ApiClass {
 				user.setPhoto(pointer.getBytes("photo"));
 				user.setBase64(pointer.getString("Base64"));
 				user.setAdminorUser(pointer.getString("AdminorUser"));
+				user.setId(pointer.getInt("id"));
 				AllRecords.add(user);
 				
 			}
@@ -276,6 +298,9 @@ public class ApiClass {
     	
     	return AllRecord;
     }
+    
+    
+    
     
 	
 	

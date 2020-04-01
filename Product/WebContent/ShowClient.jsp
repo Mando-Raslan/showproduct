@@ -61,6 +61,8 @@ if(session.getAttribute("user")== null){
       <th scope="col">state</th>
       <th scope="col">Gender</th>
       <th scope="col">AdminorUser</th>
+      <th scope="col">delete</th>
+      
     </tr>
   </thead>
   
@@ -76,6 +78,7 @@ if(session.getAttribute("user")== null){
       <td>${client.getState() }</td>
       <td>${client.getGender()}</td>
       <td>${client.getAdminorUser() }</td>
+      <td> <a href="DeleteClient?id=${client.getId()}"> delete client </a> </td>
       
     </tr>
   </tbody>

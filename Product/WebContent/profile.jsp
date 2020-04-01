@@ -128,7 +128,5 @@ if(session.getAttribute("user")==null){
 
 
 
-<h1> User Profile </h1>
-
 </body>
 </html>
