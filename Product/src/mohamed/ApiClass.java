@@ -246,6 +246,37 @@ public class ApiClass {
 		return status;
 	}
     
+    
+    public static List<ProductModel> Searching(String Search){
+    	
+    	List<ProductModel> AllRecord = new ArrayList<ProductModel>();
+        Connection con = getConnection();
+		
+		try {
+			String sql           = "select * from product_table where productName like ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			String searchWord    = ""+Search+"%" ;
+			ps.setString(1, searchWord);
+			ResultSet poinResultSet = ps.executeQuery();
+			while(poinResultSet.next()) {
+				ProductModel productModel = new ProductModel();
+				productModel.setProductName(poinResultSet.getString("productName"));
+				productModel.setDescription(poinResultSet.getString("description"));
+				productModel.setBase64(poinResultSet.getString("Base64"));
+				productModel.setId(poinResultSet.getInt("id"));
+				AllRecord.add(productModel);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    	
+    	return AllRecord;
+    }
+    
 	
 	
 
