@@ -35,6 +35,7 @@ public class Login extends HttpServlet {
 		if(user != null) {
 			HttpSession session = request.getSession();
 			if(user.getAdminorUser().equals("admin")) {
+				
 				session.setAttribute("user", user);
 				response.sendRedirect("profile.jsp");
 				

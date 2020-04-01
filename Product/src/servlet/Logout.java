@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -25,6 +26,12 @@ public class Logout extends HttpServlet {
 			session.setAttribute("user", null);
 			session.invalidate();
 			response.sendRedirect("loginform.jsp");
+			
+		}else {
+			
+			
+			response.sendRedirect("loginform.jsp");
+
 			
 		}
 		

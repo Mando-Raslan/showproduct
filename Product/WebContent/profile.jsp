@@ -4,21 +4,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>My Profile</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" >
 
-<title>My Profile</title>
 </head>
 <body>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js" ></script>
 <%@ include file="navbarProfile.html" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="mohamed.*" %>
 <%@page import="java.util.List" %>
 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js" ></script>
 
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 
@@ -31,7 +29,15 @@ if(session.getAttribute("user")==null){
 	
 	response.sendRedirect("loginform.jsp");
 	
+	
 }else{
+	
+	
+	User user             = (User)session.getAttribute("user");
+	String userOrAdmin    = user.getAdminorUser();
+	if(userOrAdmin.equals("user")){
+		response.sendRedirect("userprofile.jsp");
+	}
 	
 	
 	List <ProductModel> allRecords = ApiClass.getAllProduct();
@@ -42,14 +48,10 @@ if(session.getAttribute("user")==null){
 	}
 	
 	
-	
 }
 
 
 %>
-
-
-
 
 
 
@@ -124,6 +126,9 @@ if(session.getAttribute("user")==null){
  
 </div>
 
+
+
+<h1> User Profile </h1>
 
 </body>
 </html>
