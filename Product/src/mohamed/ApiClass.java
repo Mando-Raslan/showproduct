@@ -30,12 +30,15 @@ public class ApiClass {
 		
 	}
 	
-	public static int registerUser(User user) {
+	public static int[] registerUser(User user) {
 		
-		int status = 0;
+		int [] status = null;
 		Connection con = getConnection();
 		
+
+		
 		try {
+			
 			String sql           = "insert into client_table (email,password,address,phone,	Country	,state,Gender,photo,Base64,AdminorUser) values(?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, user.getEmail());
@@ -48,7 +51,11 @@ public class ApiClass {
 			ps.setBytes(8, user.getPhoto());
 			ps.setString(9, user.getBase64());
 			ps.setString(10, user.getAdminorUser());
-			status  = ps.executeUpdate();
+			ps.addBatch();
+			status  = ps.executeBatch();
+			con.close();
+
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

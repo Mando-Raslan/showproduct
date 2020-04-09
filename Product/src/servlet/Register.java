@@ -57,9 +57,9 @@ public class Register extends HttpServlet {
 			user.setAdminorUser(AdminorUser);
 			user.setBase64(Base64Image);
 			user.setPhoto(getByte(photo.getInputStream()));
-			int status      = ApiClass.registerUser(user);
+			int [] status      = ApiClass.registerUser(user);
 			
-			if(status > 0) {
+			if(status.length > 0) {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
 				response.sendRedirect("profile.jsp");
