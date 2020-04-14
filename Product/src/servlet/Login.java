@@ -33,6 +33,9 @@ public class Login extends HttpServlet {
 		User user       = ApiClass.login(email, password);
 		
 		if(user != null) {
+			
+
+			
 			HttpSession session = request.getSession();
 			if(user.getAdminorUser().equals("admin")) {
 				
@@ -52,7 +55,7 @@ public class Login extends HttpServlet {
 			
 			out.print(" <h1> Sorry Error Password. </h1> ");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("loginform.jsp");
-			dispatcher.include(request, response);
+			dispatcher.forward(request, response);
 			
 		}
 		

@@ -32,7 +32,7 @@ public class ApiClass {
 	
 	public static int[] registerUser(User user) {
 		
-		int [] status = null;
+		int [] status = {};
 		Connection con = getConnection();
 		
 
@@ -74,6 +74,7 @@ public class ApiClass {
 			String sql           = "delete from client_table where id=?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
+			ps.addBatch();
 			status  = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
